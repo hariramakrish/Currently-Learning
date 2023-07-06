@@ -1,0 +1,55 @@
+#include <stdio.h>
+#include <string.h>
+int main() {
+  /* define first_name */
+  char first_name[50] = "John";
+  char last_name[50]= "Boe";
+  /* define last_name */
+  char name[100];
+
+  last_name[0] = 'B';
+  sprintf(name, "%s %s", first_name, last_name);
+  printf("%s\n",name);
+  if (strncmp(name, "John Boe", 100) == 0) {
+      printf("Done!\n");
+  }
+  name[0]='\0';      // Empty the string   name[0] = '\0';  
+  strncat(name,first_name,4);
+  strncat(name,last_name,20);
+  printf("%s\n",name);
+  return 0;
+}
+
+
+1) sprintf(name, "%s %s", first_name, last_name);
+
+The sprintf() function is used to write formatted data to a string. It is similar to the printf() function, but instead of printing the formatted output to the console, it writes the output to a character array (string).
+
+The function prototype of sprintf() is as follows:
+
+
+[int sprintf(char* str, const char* format, ...);]
+
+The sprintf() function takes multiple arguments, with the first argument being the character array (str) where the formatted output will be written. The second argument (format) is a format string that specifies the desired formatting of the output. Additional arguments can be provided based on the format specifiers in the format string.
+
+The function returns the number of characters written to the output string, excluding the null-terminating character ('\0'). If an error occurs, it returns a negative value.
+
+2) The strncmp() function takes three arguments:if (strncmp(name, "John Boe", 100) == 0)
+
+str1: A pointer to the first string to be compared.
+str2: A pointer to the second string to be compared.
+n: The maximum number of characters to compare between the two strings.
+The strncmp() function compares at most n characters from the strings str1 and str2. It returns an integer value indicating the result of the comparison:
+
+If str1 is less than str2, it returns a negative value.
+If str1 is greater than str2, it returns a positive value.
+If str1 is equal to str2, it returns zero.
+
+
+
+3) [name[0]='\0';]
+
+In this code, the original value of name is "John Doe". However, after executing name[0] = '\0';, the content of name becomes an empty string. When printing name, it will output an empty string:
+
+
+

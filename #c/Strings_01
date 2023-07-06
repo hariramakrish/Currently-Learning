@@ -1,0 +1,20 @@
+#include <stdio.h>
+#include <string.h> // libre for String function
+int main() 
+{
+  char dest[20]="Hello";
+  char src[20]="World";
+  strncat(dest,src,3);
+  printf("%s\n",dest);
+  strncat(dest,src,20);
+  printf("%s\n",dest);
+}
+
+
+1)[strncat()] 
+
+It is part of the C standard library and is included in the <string.h> header file.
+
+The C standard library provides a set of functions to perform common operations on strings, such as copying, concatenating, comparing, and manipulating strings. These functions are not part of the core C language syntax but are available as library functions that can be used by including the relevant header files.
+
+To use strncat() or any other string-related functions in C, you need to include the <string.h> header file in your program. This header file declares the function prototypes and provides the necessary definitions for working with strings.

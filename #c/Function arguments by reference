@@ -1,0 +1,31 @@
+#include<stdio.h>
+int sum(int * p)
+{
+   (*p)++;
+}
+
+int main()
+{
+   int n ;
+   printf("%d value of n\n",n);
+   sum(&n);
+   printf("%d value of n",n);
+   return 0;
+}
+
+
+Pointers to structures
+
+Let's say we want to create a function which moves a point forward in both x and y directions, called move. Instead of sending two pointers, we can now send only one pointer to the function of the point structure:
+
+void move(point * p) {
+    (*p).x++;
+    (*p).y++;
+}
+
+However, if we wish to dereference a structure and access one of it's internal members, we have a shorthand syntax for that, because this operation is widely used in data structures. We can rewrite this function using the following syntax:
+
+void move(point * p) {
+    p->x++;
+    p->y++;
+}
