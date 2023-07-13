@@ -1,0 +1,132 @@
+// Online C compiler to run C program online
+#include <stdio.h>
+#include <stdlib.h>
+ typedef struct node
+ {
+     int val;
+     struct node * next;
+ }node_t;
+ 
+int New(node_t * p,int valu)
+ {
+     if(p->val==0)
+     {
+         p->val== valu;
+         return 0;
+     }
+     while(p->next != NULL)
+     {
+         p = p->next;
+     }
+     p->next = (node_t *) malloc(sizeof(node_t));
+     p->next->next = NULL;
+     p->next->val= valu;
+ }
+ void print(node_t * p)
+{
+   int count=0;
+     do{
+         if(count > 0)
+         {
+          p = p->next;   
+         }
+         count++;
+         printf("%d\n",p->val);
+       } while(p->next != NULL);
+     
+}
+int add(node_t * p,int com , int NEW)
+{
+    int count=0 ;
+    while(p->next != NULL)
+    {
+        if(count > 0)
+         {
+          p = p->next;   
+         }
+        if(p->next->val==com)
+        {
+            node_t * New = (node_t *) malloc(sizeof(node_t));
+            New->val  = NEW;
+            New->next = p->next;
+            p->next = New;
+            break;
+        }
+
+        count++;
+    }
+}    
+void replace(node_t * p,int comp,int NEW)
+ {
+     int count=0;
+    while(p->next != NULL)
+    {
+     
+     if(p->val==comp)
+     {
+         p->val = NEW;
+         break;
+     }
+     p = p->next;
+     count++;
+    }
+ }
+ 
+Remove(node_t * p,int rm)
+{
+    while(p->next != NULL)
+    {
+        if(p->next->val == rm)
+     {   
+        if(p->next->next==NULL)
+            {
+                p->next = NULL;
+                break;
+            }
+        else
+        {
+            p->next = p->next->next;
+            break;
+        }
+    }
+        if(p->val == rm)
+        {
+            node_t * NEW = (node_t *) malloc(sizeof(node_t));
+            NEW->next = p->next->next->next;
+            NEW->val = p->next->next->val;
+            p->val = p->next->val;
+            p->next = NEW;
+            break;
+        }
+        p=p->next;
+    }
+}
+
+
+
+void main() 
+{
+    // Write C code here
+    node_t obj;
+    obj.val=1;
+    obj.next=NULL;
+    
+    New(&obj,2);
+    New(&obj,3);
+    printf("Creating New Node and Print The Nodes\n");
+    print(&obj);
+    printf("Adding New Node\n");
+    add(&obj,2,4);
+    print(&obj);
+    replace(&obj,4,1);
+    replace(&obj,1,0);
+    printf("replacing Nodes\n");
+    print(&obj);
+    Remove(&obj,0);
+    Remove(&obj,2);
+    Remove(&obj,3);
+    printf("Removing Nodes\n");
+    print(&obj);
+w
+
+i
