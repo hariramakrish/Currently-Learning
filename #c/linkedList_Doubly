@@ -1,0 +1,190 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct node                                        // Structure for doubly Linked List 
+{                                                          // base Pointer function and recursion
+    
+    int val;                                              
+    struct node * next;
+    struct node * prev; 
+}node_fb;
+node_fb * add(node_fb * p , int val)                       // Creating Newnode   
+{
+    if(p == NULL)
+    {
+        p = (node_fb *) malloc(sizeof(node_fb));          
+        p->val = val;
+        p->next = NULL;
+        p->prev = NULL;
+        return p ;
+    }
+    else
+    {
+        while(p->next!= NULL)
+        {
+            p = p->next;
+        }
+    
+        p->next = (node_fb *) malloc(sizeof(node_fb));         
+        p->next->prev = p;
+        p->next->val  = val;
+        p->next->next = NULL;
+        return p;                                          // iterate and create new node at end and also assigning a previus node as current node;
+    }
+}
+void display(node_fb * p)
+{
+    while(p !=NULL)
+   {
+        printf("%d\n",p->val);
+        p = p->next;
+   }
+
+   
+}
+void reversdisplay(node_fb *p)
+{
+     while(p->next !=NULL)                                // iterating to the end 
+   {
+        p = p->next;                  
+     
+   }
+   
+    while(p !=NULL)                                       // print the Valu while P != NULL (revers order)
+   {
+        printf("%d\n",p->val);
+        p = p->prev;   
+   }
+}
+
+void otherpos(node_fb * p , int val,int pos)              // It is possible to change other node and value by using pointer (but not Head node)    
+{
+    for(int i = 1; i < pos; i++)
+    {
+        p = p->next;
+    }
+    if(p->next == NULL)                                   // Inserting a Newnode at the End;
+    {
+        p = add(p,val);   
+        return;
+    }
+    else                                                  // Inserting NewNode in Some where between Head and Tail
+    {
+        node_fb * temp = NULL ;
+        temp = add(temp,val);
+        temp->next = p->next;
+        p->next->prev =temp;
+        temp->prev = p;
+        p->next = temp;
+        
+    }
+    
+}
+node_fb * insert(node_fb ** p , int pos, int valu)       // By Usind Double pointer the Head Node can be changed
+{
+  
+ 
+    if(*p == NULL)
+    {
+          printf("invaild pos or Node is emty");    
+          return *p ;
+    }
+    else
+    {
+   
+        if(pos==0)                                       // Inserting NewNode at the Head Node; 
+        {
+          node_fb * temp = add(temp,valu);    
+          temp->next = *p;
+          temp->next->prev= temp;
+          *p = temp ;
+          return *p ;
+        }
+        else
+        {
+            otherpos(*p,valu,pos);                       // Becuse of using Double pointer Iterating Node Will change Head Node to Current Node
+            return *p;
+        }
+    }
+}
+void removeOther(node_fb * p,int pos)                    // same reason like in Insert function iterating a double ponter variable will change his head to current   
+{
+   for(int i = 1; i < pos; i++)
+    {
+        p = p->next;
+        if(p==NULL) 
+        {
+            printf("invaild postion\n");
+            return;
+        }
+    }
+    if(p->next == NULL)
+    {
+        p = p->prev;
+        p->next = NULL;
+        return;
+    }
+    
+   p             = p->prev;
+   p->next       = p->next->next;
+   p->next->prev = p;
+   
+    
+}
+void Remove(node_fb ** p,int pos)                        // By Usind Double pointer the Head Node can be changed
+{
+   if(pos==0)
+   {
+        *p = (*p)->next;
+       (*p)->prev = NULL;
+       return ;
+   }
+   else
+   {
+       removeOther(*p,pos);                            
+       return ;
+   }
+   
+}
+void Replace(node_fb * p , int pos,int val)              // iterating and assnig the value to the val simple as that
+{
+    if(pos == 0)
+    {
+        p->val = val;
+        return;
+    }
+    else
+    {
+        for(int i = 1;i<pos;i++)
+        {
+            p = p->next;
+            if(p==NULL)
+            {
+                printf("invaild pos\n");
+                return;
+            }
+        }
+        p->val = val;
+        return;
+    }
+}
+
+int main() {
+    
+   node_fb *  NEW = (node_fb *) malloc(sizeof(node_fb));  // OR we can create a NEW NODE LIKE THIS ( node_fb * New = add(NEW,10) ); 
+   NEW->val  = 10;
+   NEW->next = NULL;
+   NEW->prev = NULL;
+   add(NEW,20);                                           // adding new node at the end ; 
+   add(NEW,30);
+   display(NEW);
+   insert(&NEW,1,15);                                     // inerting node at any position
+   insert(&NEW,0,5);
+   insert(&NEW,5,35);
+   Remove(&NEW,0);                                        // DELETING nodes 
+   Replace(NEW,6,25);                                     // Replace the value
+   display(NEW);                                          // Display every node valus by iterating Next  
+   reversdisplay(NEW);                                    // Display every node valus by iterating pervisous 
+    return 0;
+}
+
